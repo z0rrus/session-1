@@ -11,6 +11,7 @@ public class PropertyHelperImpl  implements  PropertyHelper{
     private String[]    args;
 
     private String      val;
+    private Properties props;
 
 
 
@@ -38,6 +39,15 @@ public class PropertyHelperImpl  implements  PropertyHelper{
         this.args = args;
         if (!path.equals("")) {
             this.path = path;
+            try {
+                this.props = new Properties();
+                this.props.load(new FileInputStream(path));
+                // props.list(System.out);
+            }
+            catch (Exception e) {
+                System.out.println(e);
+            }
+
         }
 
     }
@@ -59,9 +69,11 @@ public class PropertyHelperImpl  implements  PropertyHelper{
         if (this.val!=null){
             return val;
         }
-        this.val = VarPropFile(name);
-        if (this.val!=null){
-            return val;
+        if (this.props!=null) {
+            this.val = VarPropFile(name);
+            if (this.val != null) {
+                return val;
+            }
         }
         return null;
     }
@@ -97,24 +109,9 @@ public class PropertyHelperImpl  implements  PropertyHelper{
     }
 
     private String VarPropFile(String name) {
+        return this.props.getProperty(name);
 
-        if (path == null || path.equals("")) {
-            System.out.println("rtthtrsh");
-            return null;
-        }
 
-        try {
-
-            Properties props = new Properties();
-            props.load(new FileInputStream(path));
-           // props.list(System.out);
-            return props.getProperty(name);
-
-        }
-        catch (Exception e) {
-            System.out.println(e);
-            return null;
-        }
     }
 
 
