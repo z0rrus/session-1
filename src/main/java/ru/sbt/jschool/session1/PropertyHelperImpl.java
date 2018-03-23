@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class PropertyHelperImpl  implements  PropertyHelper{
 
-    private String      path;
+
     private String[]    args;
 
     private String      val;
@@ -38,7 +38,7 @@ public class PropertyHelperImpl  implements  PropertyHelper{
 
         this.args = args;
         if (!path.equals("")) {
-            this.path = path;
+
             try {
                 this.props = new Properties();
                 this.props.load(new FileInputStream(path));
